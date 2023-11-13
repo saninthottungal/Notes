@@ -1,3 +1,4 @@
+import 'package:firebase2/Screens/ScreenHome.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
 import 'package:firebase2/Screens/ScreenRegister.dart';
 import 'package:firebase2/Screens/ScreenSplash.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "login": (context) => const ScreenLogin(),
           "register": (context) => const ScreenRegister(),
+          "home": (context) => const ScreenHome(),
         });
   }
 }

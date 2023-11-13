@@ -1,5 +1,5 @@
 import 'package:firebase2/Screens/EmailVerify.dart';
-import 'package:firebase2/Screens/HomeScreen.dart';
+import 'package:firebase2/Screens/ScreenHome.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
 
 import 'package:firebase2/firebase_options.dart';
@@ -22,7 +22,7 @@ class ScreenSplash extends StatelessWidget {
               final user = FirebaseAuth.instance.currentUser;
               if (user != null) {
                 if (user.emailVerified) {
-                  return const HomeScreen();
+                  return const ScreenHome();
                 } else {
                   return const EmailVerify();
                 }

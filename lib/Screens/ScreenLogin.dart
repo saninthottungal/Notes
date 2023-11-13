@@ -64,10 +64,10 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     try {
                       await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email, password: password);
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil("home", (route) => false);
                     } on FirebaseAuthException catch (e) {
-                      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-                        print("User not found");
-                      }
+                      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {}
                     }
                   },
                   child: const Text("Login")),
