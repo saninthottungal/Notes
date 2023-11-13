@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7389382617",
+    "project_id": "saninspixel",
+    "storage_bucket": "saninspixel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7389382617:android:b5bb1efdc5f7e568a9bbc8",
+        "android_client_info": {
+          "package_name": "com.example.firebase2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqYOEcomrifwTLVHaVgMxy1sMbkTFxTgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
