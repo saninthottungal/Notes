@@ -1,7 +1,0 @@
-final user = FirebaseAuth.instance.currentUser;
-                  user?.reload();
-                  if (user?.emailVerified ?? false) {
-                    return const Text("email verified");
-                  } else {
-                    return const EmailVerify();
-                  }

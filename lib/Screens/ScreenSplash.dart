@@ -20,7 +20,9 @@ class ScreenSplash extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
+
               if (user != null) {
+                user.reload();
                 if (user.emailVerified) {
                   return const ScreenHome();
                 } else {

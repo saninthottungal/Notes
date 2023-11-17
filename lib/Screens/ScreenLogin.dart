@@ -1,3 +1,4 @@
+import 'package:firebase2/Widgets/SnackBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -64,10 +65,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     try {
                       await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email, password: password);
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil("home", (route) => false);
+                      Navigator.of(context).pushNamed('verify');
                     } on FirebaseAuthException catch (e) {
-                      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {}
+                      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+                        SnackBaar.show(context, "Invalid User Credentials");
+                      }
                     }
                   },
                   child: const Text("Login")),
@@ -85,5 +87,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
         ),
       ),
     );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

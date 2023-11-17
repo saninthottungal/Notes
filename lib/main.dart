@@ -1,3 +1,4 @@
+import 'package:firebase2/Screens/EmailVerify.dart';
 import 'package:firebase2/Screens/ScreenHome.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
 import 'package:firebase2/Screens/ScreenRegister.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           "login": (context) => const ScreenLogin(),
           "register": (context) => const ScreenRegister(),
           "home": (context) => const ScreenHome(),
+          "verify": (context) => const EmailVerify(),
         });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase2/Widgets/SnackBar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -68,17 +69,20 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                         await FirebaseAuth.instance
                             .createUserWithEmailAndPassword(
                                 email: email, password: password);
+                        Navigator.of(context).pushNamed("verify");
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'email-already-in-use') {
+                          SnackBaar.show(context, "Email is already in use");
                         } else if (e.code == 'weak-password') {
+                          SnackBaar.show(
+                              context, "Password must be atleast 6 characters");
                         } else if (e.code == 'invalid-email') {}
                       }
                     },
                     child: const Text("Register")),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil("login", (route) => false);
+                      Navigator.of(context).pushNamed("login");
                     },
                     child: const Text("Already a user?\n         Login")),
               ],
