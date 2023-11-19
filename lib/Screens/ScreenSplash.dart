@@ -1,11 +1,7 @@
 import 'package:firebase2/Screens/EmailVerify.dart';
 import 'package:firebase2/Screens/ScreenHome.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
-
-import 'package:firebase2/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase2/Services/Auth/AuthSerivce.dart';
 import 'package:flutter/material.dart';
 
 class ScreenSplash extends StatelessWidget {
@@ -14,16 +10,15 @@ class ScreenSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform),
+        future: AuthService.firebase().firebaseInitialize(),
         builder: (ctx, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
+              final user = AuthService.firebase().getCurrentUser();
 
               if (user != null) {
-                user.reload();
-                if (user.emailVerified) {
+                user.refreshUser();
+                if (user.isEmailVerified) {
                   return const ScreenHome();
                 } else {
                   return const EmailVerify();

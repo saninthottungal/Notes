@@ -1,5 +1,6 @@
+import 'package:firebase2/Services/Auth/AuthExceptions.dart';
+import 'package:firebase2/Services/Auth/AuthSerivce.dart';
 import 'package:firebase2/Widgets/SnackBar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ScreenLogin extends StatefulWidget {
@@ -63,13 +64,20 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     final email = emailController.text;
                     final password = passwordController.text;
                     try {
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email, password: password);
-                      Navigator.of(context).pushNamed('verify');
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-                        SnackBaar.show(context, "Invalid User Credentials");
+                      final user = await AuthService.firebase()
+                          .signIn(email: email, password: password);
+
+                      if (!user.isEmailVerified) {
+                        Navigator.of(context).pushNamed("verify");
+                      } else {
+                        Navigator.of(context).pushReplacementNamed("home");
                       }
+                    } on UserNotLoggedInAuthException catch (_) {
+                      SnackBaar.show(context, "User Not Found");
+                    } on InvalidUserCredentialsAuthException catch (_) {
+                      SnackBaar.show(context, "Invalid User Credentials");
+                    } on GenericAuthExceptions catch (_) {
+                      SnackBaar.show(context, "Invalid User Credentials");
                     }
                   },
                   child: const Text("Login")),
@@ -87,14 +95,5 @@ class _ScreenLoginState extends State<ScreenLogin> {
         ),
       ),
     );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

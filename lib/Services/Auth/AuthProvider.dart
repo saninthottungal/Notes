@@ -16,4 +16,6 @@ abstract class AuthProvider {
   Future<void> signOut();
 
   Future<void> sendEmailVerification();
+
+  Future<void> firebaseInitialize();
 }

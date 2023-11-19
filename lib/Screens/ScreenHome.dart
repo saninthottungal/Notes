@@ -1,4 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase2/Services/Auth/AuthExceptions.dart';
+import 'package:firebase2/Services/Auth/AuthSerivce.dart';
+import 'package:firebase2/Widgets/SnackBar.dart';
 import 'package:flutter/material.dart';
 
 enum MenuActions {
@@ -23,10 +25,14 @@ class ScreenHome extends StatelessWidget {
                 final stat = await showLogoutDialogue(context);
 
                 if (stat) {
-                  await FirebaseAuth.instance.signOut();
+                  try {
+                    AuthService.firebase().signOut();
 
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil("login", (route) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil("login", (route) => false);
+                  } on UserNotLoggedInAuthException catch (_) {
+                    SnackBaar.show(context, "User Not Logged In");
+                  }
                 }
             }
           }, itemBuilder: (context) {

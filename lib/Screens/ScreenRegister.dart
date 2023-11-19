@@ -1,7 +1,7 @@
+import 'package:firebase2/Services/Auth/AuthExceptions.dart';
+import 'package:firebase2/Services/Auth/AuthSerivce.dart';
 import 'package:firebase2/Widgets/SnackBar.dart';
 import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ScreenRegister extends StatefulWidget {
   const ScreenRegister({super.key});
@@ -66,17 +66,19 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                       final email = emailController.text;
                       final password = passwordController.text;
                       try {
-                        await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: email, password: password);
+                        await AuthService.firebase()
+                            .signUp(email: email, password: password);
+
                         Navigator.of(context).pushNamed("verify");
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'email-already-in-use') {
-                          SnackBaar.show(context, "Email is already in use");
-                        } else if (e.code == 'weak-password') {
-                          SnackBaar.show(
-                              context, "Password must be atleast 6 characters");
-                        } else if (e.code == 'invalid-email') {}
+                      } on UserNotLoggedInAuthException {
+                        SnackBaar.show(context, "User Not Found");
+                      } on EmailAlreadyInUseAuthException catch (_) {
+                        SnackBaar.show(context, "Email is already in use");
+                      } on WeakPasswordAuthException catch (_) {
+                        SnackBaar.show(
+                            context, "Password must be atleast 6 characters");
+                      } on InvalidEmailAuthException catch (_) {
+                        SnackBaar.show(context, "Invalid Email");
                       }
                     },
                     child: const Text("Register")),
