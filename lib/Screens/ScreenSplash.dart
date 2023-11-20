@@ -19,7 +19,7 @@ class ScreenSplash extends StatelessWidget {
               if (user != null) {
                 user.refreshUser();
                 if (user.isEmailVerified) {
-                  return const ScreenHome();
+                  return const ScreenNotes();
                 } else {
                   return const EmailVerify();
                 }

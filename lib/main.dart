@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "login": (context) => const ScreenLogin(),
           "register": (context) => const ScreenRegister(),
-          "home": (context) => const ScreenHome(),
+          "notes": (context) => const ScreenNotes(),
           "verify": (context) => const EmailVerify(),
         });
   }

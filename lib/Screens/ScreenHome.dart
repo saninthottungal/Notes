@@ -8,8 +8,8 @@ enum MenuActions {
   help,
 }
 
-class ScreenHome extends StatelessWidget {
-  const ScreenHome({super.key});
+class ScreenNotes extends StatelessWidget {
+  const ScreenNotes({super.key});
 
   @override
   Widget build(BuildContext context) {
