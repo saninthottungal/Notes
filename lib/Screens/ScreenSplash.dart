@@ -1,5 +1,5 @@
 import 'package:firebase2/Screens/EmailVerify.dart';
-import 'package:firebase2/Screens/ScreenNotes.dart';
+import 'package:firebase2/Screens/ScreenNote.dart/ScreenNotes.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
 import 'package:firebase2/Services/Auth/AuthSerivce.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+import 'package:firebase2/Screens/ScreenNote.dart/ScreenAddNote.dart';
 import 'package:firebase2/Services/Auth/AuthExceptions.dart';
 import 'package:firebase2/Services/Auth/AuthSerivce.dart';
 import 'package:firebase2/Services/Crud/notes_service.dart';
@@ -36,7 +37,7 @@ class _ScreenNotesState extends State<ScreenNotes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Your Notes"),
         actions: [
           PopupMenuButton<MenuActions>(onSelected: (value) async {
             switch (value) {
@@ -91,6 +92,12 @@ class _ScreenNotesState extends State<ScreenNotes> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ScreenAddNote()));
+          },
+          child: const Icon(Icons.add)),
     );
   }
 }
