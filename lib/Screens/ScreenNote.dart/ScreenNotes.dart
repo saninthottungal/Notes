@@ -80,6 +80,7 @@ class _ScreenNotesState extends State<ScreenNotes> {
                   stream: _notesService.allNotes,
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
+                      case ConnectionState.active:
                       case ConnectionState.waiting:
                         return const Text("waiting for notes");
                       default:

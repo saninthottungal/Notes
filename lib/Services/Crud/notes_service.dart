@@ -41,14 +41,14 @@ class NotesService {
     const text = '';
 
     final noteId = await db.insert(
-        userTable, {notesUserId: user.id, notesText: text, notesIsSynced: 1});
+        noteTable, {notesUserId: user.id, notesText: text, notesIsSynced: 1});
+    //print(noteId);
 
     final note =
         DatabaseNotes(id: noteId, userId: user.id, text: text, isSynced: true);
 
     _notes.add(note);
     _noteStreamController.add(_notes);
-
     return note;
   }
 
@@ -132,7 +132,8 @@ class NotesService {
     try {
       await open();
     } on DatabaseIsOpenException {
-      //nothing much....
+      return;
+      //
     }
   }
 
@@ -207,7 +208,6 @@ class NotesService {
     final db = getCurrentDB();
     final results = await db.query(userTable,
         limit: 1, where: 'email = ?', whereArgs: [email.toLowerCase()]);
-
     if (results.isEmpty) {
       throw UserNotFoundException();
     } else {
