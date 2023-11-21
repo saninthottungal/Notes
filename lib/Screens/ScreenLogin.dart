@@ -70,7 +70,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       if (!user.isEmailVerified) {
                         Navigator.of(context).pushNamed("verify");
                       } else {
-                        Navigator.of(context).pushReplacementNamed("home");
+                        Navigator.of(context).pushReplacementNamed("notes");
                       }
                     } on UserNotLoggedInAuthException catch (_) {
                       SnackBaar.show(context, "User Not Found");

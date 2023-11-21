@@ -1,5 +1,6 @@
 import 'package:firebase2/Services/Auth/AuthExceptions.dart';
 import 'package:firebase2/Services/Auth/AuthSerivce.dart';
+import 'package:firebase2/Services/Crud/notes_service.dart';
 import 'package:firebase2/Widgets/SnackBar.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,28 @@ enum MenuActions {
   help,
 }
 
-class ScreenNotes extends StatelessWidget {
+class ScreenNotes extends StatefulWidget {
   const ScreenNotes({super.key});
+
+  @override
+  State<ScreenNotes> createState() => _ScreenNotesState();
+}
+
+class _ScreenNotesState extends State<ScreenNotes> {
+  late final NotesService _notesService;
+  String get userEmail => AuthService.firebase().getCurrentUser()!.email!;
+
+  @override
+  void initState() {
+    _notesService = NotesService();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _notesService.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +70,27 @@ class ScreenNotes extends StatelessWidget {
           }),
         ],
       ),
-      body: const SafeArea(
-          child: Center(
-        child: Text("Home Screen"),
-      )),
+      body: FutureBuilder(
+        future: _notesService.getOrCreateUser(email: userEmail),
+        builder: (ctx, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return StreamBuilder(
+                  stream: _notesService.allNotes,
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const Text("waiting for notes");
+                      default:
+                        return const CircularProgressIndicator();
+                    }
+                  });
+
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }

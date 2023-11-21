@@ -40,7 +40,7 @@ class EmailVerify extends StatelessWidget {
                   user.refreshUser();
                   if (user.isEmailVerified) {
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil("home", (route) => false);
+                        .pushNamedAndRemoveUntil("notes", (route) => false);
                   } else {
                     SnackBaar.show(context, "Your email is not verified yet");
                   }

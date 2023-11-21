@@ -1,5 +1,5 @@
 import 'package:firebase2/Screens/EmailVerify.dart';
-import 'package:firebase2/Screens/ScreenHome.dart';
+import 'package:firebase2/Screens/ScreenNotes.dart';
 import 'package:firebase2/Screens/ScreenLogin.dart';
 import 'package:firebase2/Screens/ScreenRegister.dart';
 import 'package:firebase2/Screens/ScreenSplash.dart';
